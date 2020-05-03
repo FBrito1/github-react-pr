@@ -82,8 +82,8 @@ export const RepositoryList = styled.ul`
         }
 
         span {
-          background: #eee;
-          color: #333;
+          background: #6699ff;
+          color: #fff;
           border-radius: 2px;
           font-size: 12px;
           font-weight: 600;
@@ -120,4 +120,18 @@ export const FollowStats = styled.div`
       margin-right: 8px;
     }
   }
+`;
+
+export const SeeMoreLink = styled.a`
+  cursor: pointer;
+  text-decoration: underline;
+  color: '#6699ff';
+  font-size: 12;
+  margin-top: 16px;
+`;
+
+export const LinkWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

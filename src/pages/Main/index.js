@@ -1,8 +1,10 @@
 /* eslint-disable react/state-in-constructor */
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FaGithubAlt, FaSpinner, FaSearch } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
+
+import { store } from '../../store/state';
 
 import api from '../../services/api';
 import Container from '../../components/Container';
@@ -13,6 +15,13 @@ export default function Main() {
   const [loading, setLoading] = useState(false);
   const [redirectTo, setRedirectTo] = useState(null);
 
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  useEffect(() => {
+    dispatch({ type: 'RESET_USER_DETAILS' });
+  }, []);
+
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
@@ -22,11 +31,15 @@ export default function Main() {
         api.get(`/users/${username}`),
         api.get(`/users/${username}/repos`),
       ]);
-      // const response = await api.get(`/users/${username}`);
-      // setLoading(false);
 
-      console.log('response', userData);
-      console.log('reposdata', reposData);
+      const userDetails = {
+        user: userData.data,
+        repos: reposData.data,
+      };
+
+      dispatch({ type: 'SET_USER_DETAILS', payload: userDetails });
+      setLoading(false);
+      setRedirectTo('/user-details');
     } catch (err) {
       setLoading(false);
       toast.error('Usuário não encontrado');

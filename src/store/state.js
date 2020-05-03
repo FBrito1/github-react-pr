@@ -2,7 +2,7 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = {
-  blue: false,
+  userDetails: {},
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -10,10 +10,15 @@ const { Provider } = store;
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
-      case 'SET_BLUE_TRUE':
+      case 'SET_USER_DETAILS':
         return {
           ...state,
-          blue: !state.blue,
+          userDetails: action.payload,
+        };
+      case 'RESET_USER_DETAILS':
+        return {
+          ...state,
+          userDetails: {},
         };
       default:
         throw new Error();
