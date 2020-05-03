@@ -22,8 +22,6 @@ export default function UserDetails() {
   const repoImg =
     'https://f1.pngfuel.com/png/553/861/236/git-line-github-version-control-computer-software-repository-branching-commit-merge-png-clip-art.png';
 
-  console.log('userDetaails', userDetails);
-
   return (
     <Container>
       {userDetails.user ? (

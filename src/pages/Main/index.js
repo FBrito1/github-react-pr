@@ -10,6 +10,8 @@ import api from '../../services/api';
 import Container from '../../components/Container';
 import { Form, SubmitButton } from './styles';
 
+import { orderReposByStar } from '../../utils/functions';
+
 export default function Main() {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,9 +34,11 @@ export default function Main() {
         api.get(`/users/${username}/repos`),
       ]);
 
+      const sortedRepos = reposData.data.sort(orderReposByStar);
+
       const userDetails = {
         user: userData.data,
-        repos: reposData.data,
+        repos: sortedRepos,
       };
 
       dispatch({ type: 'SET_USER_DETAILS', payload: userDetails });
